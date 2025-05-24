@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class RegistrationRejected extends Notification
+class RegistrationCancelled extends Notification
 {
     use Queueable;
 
@@ -39,13 +39,14 @@ class RegistrationRejected extends Notification
         $activity = $this->registration->activity;
         
         return (new MailMessage)
-            ->subject('您的活動報名未獲通過')
+            ->subject('您的活動報名已取消')
             ->greeting('您好，' . $notifiable->name)
-            ->line('很遺憾地通知您，您對以下活動的報名未獲通過：')
+            ->line('我們收到您取消參加以下活動的請求：')
             ->line($activity->title)
-            ->line('若有任何疑問，請聯繫我們的客服人員。')
+            ->line('您的報名已成功取消。')
+            ->line('若此為系統錯誤或您並未申請取消，請立即聯繫我們的客服人員。')
             ->action('查看其他活動', url('/activities'))
-            ->line('感謝您的支持！');
+            ->line('感謝您的支持與理解！');
     }
 
     /**
@@ -60,8 +61,8 @@ class RegistrationRejected extends Notification
         return [
             'activity_id' => $activity->id,
             'activity_title' => $activity->title,
-            'type' => 'registration_rejected',
-            'message' => '您報名的活動「' . $activity->title . '」未獲通過。'
+            'type' => 'registration_cancelled',
+            'message' => '您已成功取消參加活動「' . $activity->title . '」的報名。'
         ];
     }
 }
