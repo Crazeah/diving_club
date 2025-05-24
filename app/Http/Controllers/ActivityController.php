@@ -8,6 +8,7 @@ use App\Models\Activity;
 use App\Models\ActivityCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Notifications\RegistrationCancelled;
 
 class ActivityController extends Controller
 {
@@ -74,7 +75,7 @@ class ActivityController extends Controller
             return back()->with('success', '報名成功');
         } catch (\Exception $e) {
             // 記錄錯誤
-            \Log::error('活動報名失敗: ' . $e->getMessage());
+            Log::error('活動報名失敗: ' . $e->getMessage());
             return back()->with('error', '報名處理時發生錯誤，請稍後再試');
         }
     }
@@ -82,17 +83,31 @@ class ActivityController extends Controller
     public function unregister(Activity $activity, Request $request)
     {
         try {
-            // 刪除報名紀錄
-            $deleted = $activity->registrations()->where('user_id', auth()->id())->delete();
+            // 先獲取報名記錄
+            $registration = $activity->registrations()->where('user_id', auth()->id())->first();
 
-            if ($deleted) {
+            if ($registration) {
+                // 保存報名記錄的副本，以便發送通知
+                $user = auth()->user();
+
+                // 刪除報名記錄
+                $registration->delete();
+
+                // 發送取消報名通知
+                try {
+                    $user->notify(new RegistrationCancelled($registration));
+                } catch (\Exception $e) {
+                    // 記錄通知失敗但不中斷流程
+                    Log::error('發送取消報名通知失敗: ' . $e->getMessage());
+                }
+
                 return back()->with('success', '已取消報名');
             } else {
                 return back()->with('error', '您尚未報名此活動');
             }
         } catch (\Exception $e) {
             // 記錄錯誤
-            \Log::error('取消活動報名失敗: ' . $e->getMessage());
+            Log::error('取消活動報名失敗: ' . $e->getMessage());
             return back()->with('error', '取消報名處理時發生錯誤，請稍後再試');
         }
     }
