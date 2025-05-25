@@ -4,19 +4,43 @@
 
 
 @section('content')
-<div class="jumbotron bg-light p-5 mb-4 rounded">
-    <div class="container">
-        <h1 class="display-4">歡迎來到潛水社</h1>
-        <p class="lead">探索海洋世界的最佳夥伴，加入我們的水下冒險！</p>
-        <hr class="my-4">
-        <p>立即瀏覽最新活動或成為社員享有更多福利。</p>
-        <div class="mt-4">
-            <a class="btn btn-primary btn-lg" href="{{ route('activities.index') }}" role="button">瀏覽活動</a>
-            @guest
-            <a class="btn btn-outline-primary btn-lg ms-2" href="{{ route('register') }}" role="button">立即註冊</a>
-            @endguest
+<div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel" style="height: 300px; overflow: hidden;">
+    <div class="carousel-inner" style="height: 100%;">
+        <div class="carousel-item active" style="height: 100%;">
+            <img src="{{ asset('images/slide1.jpg') }}" class="d-block w-100" alt="Slide 1" style="object-fit: cover; height: 100%;">
+            <div class="carousel-caption d-flex flex-column align-items-start" style="top: 0; bottom: 0; left: 10%;">
+                <h5 class="text-start">歡迎來到潛水社</h5>
+                <p class="text-start">探索海洋世界的最佳夥伴，加入我們的水下冒險！</p>    
+                <h5 class="text-start">立即加入我們</h5>
+                <p class="text-start">成為社員享有更多福利，包括優先報名熱門活動。</p>
+                <div class="d-flex mt-3">
+                    <a class="btn btn-primary btn-lg me-2" href="{{ route('activities.index') }}" role="button">瀏覽活動</a>
+                    <a class="btn btn-outline-primary btn-lg" href="{{ route('register') }}" role="button">立即註冊</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item" style="height: 100%;">
+            <img src="{{ asset('images/slide2.jpg') }}" class="d-block w-100" alt="Slide 2" style="object-fit: cover; height: 100%;">
+            <div class="carousel-caption d-flex flex-column align-items-start" style="top: 0; bottom: 0; left: 10%;">
+                <h5 class="text-start">歡迎來到潛水社</h5>
+                <p class="text-start">探索海洋世界的最佳夥伴，加入我們的水下冒險！</p>    
+                <h5 class="text-start">立即加入我們</h5>
+                <p class="text-start">成為社員享有更多福利，包括優先報名熱門活動。</p>
+                <div class="d-flex mt-3">
+                    <a class="btn btn-primary btn-lg me-2" href="{{ route('activities.index') }}" role="button">瀏覽活動</a>
+                    <a class="btn btn-outline-primary btn-lg" href="{{ route('register') }}" role="button">立即註冊</a>
+                </div>
+            </div>
         </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">上一張</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">下一張</span>
+    </button>
 </div>
 
 <style>
