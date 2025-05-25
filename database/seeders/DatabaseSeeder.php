@@ -50,6 +50,9 @@ class DatabaseSeeder extends Seeder
         }
 
         // 確保有用戶存在來創建公告
+    
+        
+
         $admin = User::firstorCreate([
             'name' => '系統管理員',
             'email' => 'admin@example.com',
@@ -69,10 +72,30 @@ class DatabaseSeeder extends Seeder
         $member->roles()->attach($userRole);
 
         $user = User::firstOrCreate([
+            'name' => '柴映竹',
+            'email' => 'chaiivy111@gmail.com',
+            'password' => Hash::make('password'),
+        ]);
+        $userRole = Role::where('slug', 'super')->first();
+        $user->roles()->attach($userRole);
+
+        
+        $user = User::firstOrCreate([
             'name' => 'Sardelka',
             'email' => 'sardelka9515@gmail.com',
             'password' => Hash::make('password'),
         ]);
+        $userRole = Role::where('slug', 'super')->first();
+        $user->roles()->attach($userRole);
+
+        $user = User::firstOrCreate([
+            'name' => '112403537',
+            'email' => 'hungjack1222@gmail.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $userRole = Role::where('slug', 'super')->first();
+        $user->roles()->attach($userRole);
 
         $userRole = Role::where('slug', 'super')->first();
         $user->roles()->attach($userRole);
