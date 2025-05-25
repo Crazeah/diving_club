@@ -304,7 +304,7 @@
                     <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>關於潛水社</h5>
                 </div>
                 <div class="card-body">
-                    <p>潛水社成立於2010年，致力於推廣潛水運動及海洋保育教育。我們提供專業的潛水課程、多元的潛水活動，以及結合海洋保育的教育計劃。</p>
+                    <p>潛水社成立於2019年，致力於推廣潛水運動及海洋保育教育。我們提供專業的潛水課程、多元的水上活動，以及結合海洋保育、定期舉辦的的淨灘活動。</p>
                     
                     <div class="mt-3">
                         <div class="d-flex align-items-center mb-2">

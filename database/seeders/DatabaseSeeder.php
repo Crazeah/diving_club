@@ -45,13 +45,13 @@ class DatabaseSeeder extends Seeder
             ]
             );
 
-        if (!$superUser->roles()->where('role_id', )->exists()) {
-            $superUser->roles()->attach($superRole);
-        }
+            
+            if (!$superUser->roles()->where('role_id', $superRole->id)->exists()) {
+                $superUser->roles()->attach($superRole);
+            }
 
         // 確保有用戶存在來創建公告
     
-        
 
         $admin = User::firstorCreate([
             'name' => '系統管理員',
@@ -97,15 +97,13 @@ class DatabaseSeeder extends Seeder
         $userRole = Role::where('slug', 'super')->first();
         $user->roles()->attach($userRole);
 
-        $userRole = Role::where('slug', 'super')->first();
-        $user->roles()->attach($userRole);
-
+        
         // 創建活動分類
         $categories = [
             ['name' => '體驗潛水', 'slug' => 'experience'],
-            ['name' => '進階潛水', 'slug' => 'advanced'],
-            ['name' => '潛水認證', 'slug' => 'certification'],
-            ['name' => '海洋生態', 'slug' => 'ecology'],
+            ['name' => '潛旅行程', 'slug' => 'advanced'],
+            ['name' => '潛水考照', 'slug' => 'certification'],
+            ['name' => '淨灘活動', 'slug' => 'ecology'],
             ['name' => '社交活動', 'slug' => 'social'],
         ];
 
@@ -158,29 +156,29 @@ class DatabaseSeeder extends Seeder
                 'is_published' => true,
             ],
             [
-                'title' => '綠島夜潛體驗',
-                'description' => '體驗神秘的夜間海洋世界，觀察夜行性海洋生物的活動。',
-                'content' => '<h3>夜潛介紹</h3><p>夜潛是截然不同的潛水體驗，在手電筒的照射下，您將看到白天看不到的夜行性生物。</p><h3>可能遇到的生物</h3><ul><li>夜行性魚類（如黃頭鸚哥魚）</li><li>各種蝦蟹類</li><li>海鰻與章魚</li><li>夜間開花的珊瑚</li></ul><h3>安全須知</h3><ul><li>必須持有開放水域潛水員證照</li><li>使用專業潛水手電筒</li><li>緊跟教練，不可擅自脫隊</li><li>建議有10次以上潛水經驗</li></ul>',
-                'start_date' => now()->addDays(21)->setTime(18, 30),
-                'end_date' => now()->addDays(21)->setTime(21, 0),
+                'title' => '潛水社淨灘',
+                'description' => '社團定期舉辦的海洋淨灘活動，旨在保護海洋環境，提升社會大眾對海洋保護的意識。',
+                'content' => '<h3>活動目的</h3><p>透過淨灘活動，清除海洋垃圾，保護海洋生態，同時提升社會大眾對海洋保護的意識。</p><h3>活動安排</h3><ul><li><strong>09:00-10:00</strong> 集合與簡介</li><li><strong>10:00-12:00</strong> 淨灘行動</li><li><strong>12:00-13:00</strong> 午餐時間（提供簡餐）</li><li><strong>13:00-15:00</strong> 繼續淨灘與垃圾分類</li><li><strong>15:00-16:00</strong> 活動總結與分享</li></ul><h3>注意事項</h3><ul><li>請穿著適合戶外活動的服裝與鞋子</li><li>建議攜帶手套、垃圾袋、水壺等物品</li><li>活動當天請勿飲酒，保持良好體力參與活動</li></ul>',
+                'start_date' => now()->addDays(7)->setTime(9, 0),
+                'end_date' => now()->addDays(7)->setTime(16, 0),
                 'registration_start' => now(),
-                'registration_end' => now()->addDays(14),
-                'max_participants' => 4,
-                'location' => '台東縣綠島鄉中寮港',
-                'price' => 3500,
+                'registration_end' => now()->addDays(3),
+                'max_participants' => 20,
+                'location' => '桃園市新屋區永安漁港南岸第三段',
+                'price' => 0,
                 'activity_category_id' => 4,
                 'is_published' => true,
             ],
             [
-                'title' => '潛水社年度BBQ聚會',
-                'description' => '社員年度聚會活動，享受美食與分享潛水經驗，增進彼此友誼。',
-                'content' => '<h3>活動內容</h3><p>一年一度的潛水社大聚會，所有社員齊聚一堂，分享這一年來的潛水經歷與收穫。</p><h3>活動安排</h3><ul><li><strong>15:00-16:00</strong> 報到與交流</li><li><strong>16:00-17:30</strong> BBQ時間</li><li><strong>17:30-18:30</strong> 年度潛水照片分享</li><li><strong>18:30-19:30</strong> 遊戲與抽獎</li><li><strong>19:30-20:00</strong> 頒發年度獎項</li></ul><h3>免費提供</h3><ul><li>BBQ食材與設備</li><li>飲料與啤酒</li><li>現場音響設備</li><li>精美紀念品</li></ul>',
+                'title' => '潛水社社團聚會',
+                'description' => '社員學期聚會活動，享受美食與分享潛水經驗，增進彼此友誼。',
+                'content' => '<h3>活動內容</h3><p>半年一度的潛水社大聚會，所有社員齊聚一堂，分享這一年來的潛水經歷與收穫。</p><h3>活動安排</h3><ul><li><strong>15:00-16:00</strong> 報到與交流</li><li><strong>16:00-17:30</strong> 吃飯時間</li><li><strong>17:30-18:30</strong> 年度潛水照片分享</li><li><strong>18:30-19:30</strong> 遊戲與抽獎</li><li><strong>19:30-20:00</strong> 頒發年度獎項</li></ul><h3>免費提供</h3><ul><li>BBQ食材與設備</li><li>飲料與啤酒</li><li>現場音響設備</li><li>精美紀念品</li></ul>',
                 'start_date' => now()->addDays(45)->setTime(15, 0),
                 'end_date' => now()->addDays(45)->setTime(20, 0),
                 'registration_start' => now(),
                 'registration_end' => now()->addDays(35),
                 'max_participants' => 50,
-                'location' => '新北市金山區朱銘美術館',
+                'location' => '桃園市中壢區 川王府火鍋',
                 'price' => 0,
                 'activity_category_id' => 5,
                 'is_published' => true,
