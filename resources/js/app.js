@@ -27,5 +27,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 如果需要全局可用的 Bootstrap
-window.bootstrap = bootstrap;
