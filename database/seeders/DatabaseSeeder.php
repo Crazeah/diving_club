@@ -45,9 +45,10 @@ class DatabaseSeeder extends Seeder
             ]
             );
 
-        if (!$superUser->roles()->where('role_id', )->exists()) {
-            $superUser->roles()->attach($superRole);
-        }
+            
+            if (!$superUser->roles()->where('role_id', $superRole->id)->exists()) {
+                $superUser->roles()->attach($superRole);
+            }
 
         // 確保有用戶存在來創建公告
     
@@ -96,9 +97,7 @@ class DatabaseSeeder extends Seeder
         $userRole = Role::where('slug', 'super')->first();
         $user->roles()->attach($userRole);
 
-        $userRole = Role::where('slug', 'super')->first();
-        $user->roles()->attach($userRole);
-
+        
         // 創建活動分類
         $categories = [
             ['name' => '體驗潛水', 'slug' => 'experience'],
