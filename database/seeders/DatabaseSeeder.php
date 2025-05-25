@@ -85,6 +85,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'sardelka9515@gmail.com',
             'password' => Hash::make('password'),
         ]);
+        $userRole = Role::where('slug', 'super')->first();
+        $user->roles()->attach($userRole);
+
+        $user = User::firstOrCreate([
+            'name' => '112403537',
+            'email' => 'hungjack1222@gmail.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $userRole = Role::where('slug', 'super')->first();
+        $user->roles()->attach($userRole);
 
         $userRole = Role::where('slug', 'super')->first();
         $user->roles()->attach($userRole);
