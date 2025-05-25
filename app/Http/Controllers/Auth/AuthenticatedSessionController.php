@@ -40,6 +40,12 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('https://portal.ncu.edu.tw/logout');
+        // Optional: Redirect to NCU Portal's central logout URL if available
+        // $ncuLogoutUrl = 'https://portal.ncu.edu.tw/logout_page_if_any';
+        // if (isset($ncuLogoutUrl)) {
+        //     return redirect()->away($ncuLogoutUrl);
+        // }
+
+        return redirect('/');
     }
 }
