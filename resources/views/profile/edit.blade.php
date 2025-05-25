@@ -41,8 +41,41 @@
                             </div>
                         </div>
                         <div class="profile-info">
+                            @php
+                                if (auth()->user()->hasRole('super')) {
+                                    $role = 'super';
+                                    $roleClass = 'role-super';
+                                } elseif (auth()->user()->hasRole('admin')) {
+                                    $role = 'admin';
+                                    $roleClass = 'role-admin';
+                                } elseif (auth()->user()->hasRole('member')) {
+                                    $role = 'member';
+                                    $roleClass = 'role-member';
+                                } else {
+                                    $role = 'user';
+                                    $roleClass = 'role-user';
+                                }
+                            @endphp
                             <h5 class="profile-name">{{ $user->name }}</h5>
                             <p class="profile-email">{{ $user->email }}</p>
+                            <div class="profile-role-badge 
+        {{ $roleClass }}">
+                                <i
+                                    class="bi {{ $role === 'super'
+                                        ? 'bi-star-fill'
+                                        : ($role === 'admin'
+                                            ? 'bi-shield-fill'
+                                            : ($role === 'member'
+                                                ? 'bi-people-fill'
+                                                : 'bi-person-fill')) }}"></i>
+                                <span>{{ $role === 'super'
+                                    ? '超級管理員'
+                                    : ($role === 'admin'
+                                        ? '系統管理員'
+                                        : ($role === 'member'
+                                            ? '社員'
+                                            : '非社員')) }}</span>
+                            </div>
                             <div class="profile-meta">
                                 <div class="profile-meta-item">
                                     <i class="bi bi-award"></i>
@@ -608,6 +641,54 @@
             font-weight: 600;
             color: #333;
             margin-bottom: 0.25rem;
+        }
+
+        .profile-role-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            margin: 0 auto 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            max-width: fit-content;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-role-badge i {
+            margin-right: 0.3rem;
+            font-size: 0.85rem;
+        }
+
+        .role-super {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.2);
+        }
+
+        .role-admin {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #d39e00;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .role-member {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #0077be;
+            border: 1px solid rgba(0, 123, 255, 0.2);
+        }
+
+        .role-user {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+            border: 1px solid rgba(108, 117, 125, 0.2);
+        }
+
+        .profile-role-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .profile-email {
