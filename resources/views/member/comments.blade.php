@@ -3,21 +3,25 @@
 @section('title', '我的評論')
 
 @section('content')
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                    <h1 class="mb-3 mb-md-0"><i class="bi bi-chat-dots me-2 text-primary"></i>我的評論</h1>
-                    <div class="d-flex gap-2">
-                        <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">
-                            <i class="bi bi-arrow-left me-1"></i> 返回儀表板
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <div class="ocean-header">
+        <div class="container header-content">
+            <h1 class="text-white mb-0">我的評論</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-white-50">儀表板</a></li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">我的評論</li>
+                </ol>
+            </nav>
         </div>
-
-        <div class="row g-4">
+        <div class="bubble-container">
+            <div class="bubble bubble-1"></div>
+            <div class="bubble bubble-2"></div>
+            <div class="bubble bubble-3"></div>
+            <div class="bubble bubble-4"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row g-4 py-4">
             <div class="col-12">
                 <!-- Comments Stats Cards -->
                 <div class="row g-3 mb-4">
@@ -190,8 +194,7 @@
                                                         class="btn btn-sm btn-outline-secondary view-comment-btn"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#viewCommentModal-{{ $comment->id }}"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="查看評論">
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="查看評論">
                                                         <i class="bi bi-eye"></i>
                                                     </button>
 
@@ -199,8 +202,7 @@
                                                         class="btn btn-sm btn-outline-primary edit-comment-btn"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editCommentModal-{{ $comment->id }}"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="編輯評論">
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="編輯評論">
                                                         <i class="bi bi-pencil"></i>
                                                     </button>
 
@@ -210,8 +212,7 @@
                                                         @method('PATCH')
                                                         <button type="submit"
                                                             class="btn btn-sm {{ $comment->is_visible ? 'btn-outline-warning' : 'btn-outline-success' }}"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="{{ $comment->is_visible ? '隱藏評論' : '顯示評論' }}">
                                                             {{ $comment->is_visible ? '隱藏' : '顯示' }}
                                                             <i
@@ -222,8 +223,7 @@
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteCommentModal-{{ $comment->id }}"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="刪除評論">
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="刪除評論">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </div>
@@ -402,6 +402,89 @@
 
     @push('styles')
         <style>
+            .ocean-header {
+                background: linear-gradient(135deg, #004766, #006994, #0077be, #1e90ff);
+                padding: 3rem 0;
+                position: relative;
+                margin-top: -1.5rem;
+                overflow: hidden;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .header-content {
+                position: relative;
+                z-index: 10;
+            }
+
+            /* Bubble animation */
+            .bubble-container {
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: 0;
+            }
+
+            .bubble {
+                position: absolute;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                bottom: -50px;
+                animation: bubble-rise var(--bubble-speed) ease-in infinite;
+                opacity: 0;
+            }
+
+            .bubble-1 {
+                --bubble-speed: 8s;
+                width: 40px;
+                height: 40px;
+                left: 10%;
+                animation-delay: 0.5s;
+            }
+
+            .bubble-2 {
+                --bubble-speed: 12s;
+                width: 20px;
+                height: 20px;
+                left: 35%;
+                animation-delay: 1s;
+            }
+
+            .bubble-3 {
+                --bubble-speed: 9s;
+                width: 35px;
+                height: 35px;
+                left: 60%;
+                animation-delay: 2s;
+            }
+
+            .bubble-4 {
+                --bubble-speed: 11s;
+                width: 25px;
+                height: 25px;
+                left: 85%;
+                animation-delay: 1.5s;
+            }
+
+            @keyframes bubble-rise {
+                0% {
+                    transform: translateY(0) scale(1);
+                    opacity: 0;
+                }
+
+                10% {
+                    opacity: 0.8;
+                }
+
+                100% {
+                    transform: translateY(-350px) scale(1.2);
+                    opacity: 0;
+                }
+            }
+
             .icon-circle {
                 width: 48px;
                 height: 48px;
