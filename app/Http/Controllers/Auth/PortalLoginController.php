@@ -50,7 +50,7 @@ class PortalLoginController extends Controller
 
         $portalIdentifier = $ncuUser->getId(); // Assuming this provides the NCU 'identifier'
         $portalEmail = $ncuUser->getEmail();
-        $portalName =  $portalIdentifier;
+        $portalName =  $ncuUser->user['chineseName'] ?? null;
         \Log::info('NCU Portal User Info:', [
             'identifier' => $portalIdentifier,
             'email' => $portalEmail,
