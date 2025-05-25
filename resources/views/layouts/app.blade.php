@@ -342,6 +342,14 @@
                             </a>
                         </li>
                     @else
+                        @if (auth()->user()->hasRole('user'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="https://docs.google.com/forms/d/1yuYXrVkKjVCynJkqYwpfep7zE_denhYf-OwuGFMtQjo/edit">
+                                    <i class="bi bi-calendar-check"></i> 加入社員
+                                </a>
+                            </li>
+                        @endif
                         <!-- 管理員選項 - 只有 admin 和 super 可見 -->
                         @if (auth()->user()->hasRole(['admin', 'super']))
                             <li class="nav-item dropdown">
@@ -456,9 +464,9 @@
                     <h5 class="mb-3">潛水社</h5>
                     <p class="mb-3">探索海洋世界的最佳夥伴</p>
                     <div class="d-flex gap-3">
-                        <a href="#" class="text-white fs-5"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="text-white fs-5"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="text-white fs-5"><i class="bi bi-youtube"></i></a>
+                        <a href="https://www.facebook.com/ncudiving/" class="text-white fs-5"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/ncusd.club?igshid=YmMyMTA2M2Y%3D" class="text-white fs-5"><i class="bi bi-instagram"></i></a>
+                        <a href="https://linktr.ee/NCUSDC?fbclid=IwY2xjawKfo3RleHRuA2FlbQIxMABicmlkETFZaTFGUHpjbnE4SVZJem1SAR5Ql3latlergweYheQRb5v5kD_GK-yYPzQR8Kj1lpkoC5J4ej-mJaCxz1j5JA_aem_EXpCf68XVE9BcE5FfKnkbA" class="text-white fs-5"><i class="bi bi-signpost-fill"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="200">
@@ -474,9 +482,9 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <h5 class="mb-3">聯絡我們</h5>
-                    <p><i class="bi bi-geo-alt-fill me-2"></i>台灣某某縣市某某區</p>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i>桃園市中壢區中大路300號</p>
                     <p><i class="bi bi-envelope-fill me-2"></i>info@divingclub.com</p>
-                    <p><i class="bi bi-telephone-fill me-2"></i>+886 123 456 789</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i>+886 912 345 678</p>
                 </div>
             </div>
             <div class="row mt-4 pt-3 border-top border-light">
