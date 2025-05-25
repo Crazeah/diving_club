@@ -355,6 +355,14 @@
                             </a>
                         </li>
                     @else
+                        @if (auth()->user()->hasRole('user'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="https://docs.google.com/forms/d/1yuYXrVkKjVCynJkqYwpfep7zE_denhYf-OwuGFMtQjo/edit">
+                                    <i class="bi bi-calendar-check"></i> 加入社員
+                                </a>
+                            </li>
+                        @endif
                         <!-- 管理員選項 - 只有 admin 和 super 可見 -->
                         @if (auth()->user()->hasRole(['admin', 'super']))
                             <li class="nav-item dropdown">
