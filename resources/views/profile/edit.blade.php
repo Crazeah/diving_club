@@ -98,6 +98,11 @@
                                 <i class="bi bi-check-circle me-1"></i> 已更新
                             </div>
                         @endif
+                        @if ($errors->any())
+                            <div class="error-badge">
+                                <i class="bi bi-exclamation-circle me-1"></i> 表單填寫有誤
+                            </div>
+                        @endif
                     </div>
                     <div class="content-card-body">
                         <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -185,7 +190,7 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="date" class="form-control" id="birth_date" name="birth_date"
-                                            value="{{ old('birth_date', $user->birth_date ?? '') }}"
+                                            value="{{ old('birth_date', isset($user->birth_date) ? $user->birth_date->format('Y-m-d') : '') }}"
                                             placeholder="Birth date">
                                         <label for="birth_date">出生日期</label>
                                     </div>
@@ -900,6 +905,48 @@
             border-radius: 50px;
             display: inline-flex;
             align-items: center;
+            margin-left: 1rem;
+        }
+
+        .error-badge {
+            background-color: #dc354520;
+            color: #dc3545;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.4rem 0.75rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 1rem;
+            animation: pulse-error 2s infinite;
+        }
+
+        @keyframes pulse-error {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 6px rgba(220, 53, 69, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .content-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .success-badge,
+            .error-badge {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
         }
 
         /* Modal styling */
@@ -1125,6 +1172,32 @@
                         }
                     }
                 });
+            }
+
+            const errorFields = document.querySelectorAll('.is-invalid');
+            if (errorFields.length > 0) {
+                // Add subtle highlight animation to the error badge
+                const errorBadge = document.querySelector('.error-badge');
+                if (errorBadge) {
+                    errorBadge.classList.add('animate-pulse');
+                }
+
+                // Scroll to first error field with offset
+                setTimeout(() => {
+                    errorFields[0].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+
+                    // Add highlight effect to error fields
+                    errorFields.forEach(field => {
+                        field.style.transition = 'background-color 1s';
+                        field.style.backgroundColor = 'rgba(220, 53, 69, 0.05)';
+                        setTimeout(() => {
+                            field.style.backgroundColor = '';
+                        }, 1500);
+                    });
+                }, 300);
             }
         });
     </script>
