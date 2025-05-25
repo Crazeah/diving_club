@@ -97,6 +97,25 @@ class DatabaseSeeder extends Seeder
         $userRole = Role::where('slug', 'super')->first();
         $user->roles()->attach($userRole);
 
+        $user = User::firstOrCreate([
+            'name' => 'mina小漂亮',
+            'email' => '112403507@cc.ncu.edu.tw',
+            'password' => Hash::make('password'),
+        ]);
+
+        $userRole = Role::where('slug', 'member')->first();
+        $user->roles()->attach($userRole);
+
+        $user = User::firstOrCreate([
+            'name' => '歐斯文',
+            'email' => '112403522@cc.ncu.edu.tw',
+            'password' => Hash::make('password'),
+        ]);
+
+        $userRole = Role::where('slug', 'admin')->first();
+        $user->roles()->attach($userRole);
+
+
         
         // 創建活動分類
         $categories = [
